@@ -6,7 +6,7 @@ $contasCorrentes = [
     63473479812 => ['titular' => 'Flora', 'saldo' => 1500]
 ];
 
-$contasCorrentes[12345678910]['saldo'] -= 500;
+$contasCorrentes = sacar($contasCorrentes[12345678910], 500);
 
 foreach ($contasCorrentes as $cpf => $conta){
      exibeMensagem($cpf . ' ' . $conta['titular'] . ' ' . $conta['saldo']);
@@ -16,11 +16,12 @@ function exibeMensagem($mensagem){
     echo $mensagem . PHP_EOL;
 }
 
-function sacar($valor, $contasCorrentes){
-    if($valor > $contasCorrentes['saldo']){
+function sacar($valor, $conta){
+    if($valor > $conta['saldo']){
         exibeMensagem('Saldo insuficiente');
     }else{
-        $contasCorrentes['saldo'] -= $valor;
+        $conta['saldo'] -= $valor;
         exibeMensagem('Saque realizado com sucesso');
     }
+    return $conta;
 }
