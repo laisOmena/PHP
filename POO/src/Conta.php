@@ -6,6 +6,7 @@ class Conta
     private $cpfHolder;
     private $nameHolder;
     private $balance;
+    private static $numberAccount = 0;
 
     /**
      * Conta constructor.
@@ -18,7 +19,18 @@ class Conta
         $this->nameHolder = $nameHolder;
         $this->validateHolderName($nameHolder);
         $this->balance = 0;
+
+        self::$numberAccount++;
     }
+
+    /**
+     * subtraí o nùmero de contas, quando a instância é apagada
+     */
+    public function __destruct()
+    {
+        self::$numberAccount--;
+    }
+
     /**
      * @return mixed
      */
@@ -95,4 +107,8 @@ class Conta
         }
     }
 
+    public static function getNumberAccount():int
+    {
+        return self::$numberAccount;
+    }
 }
