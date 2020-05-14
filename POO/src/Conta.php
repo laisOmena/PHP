@@ -3,21 +3,17 @@
 
 class Conta
 {
-    private $cpfHolder;
-    private $nameHolder;
+    private $holder;
     private $balance;
     private static $numberAccount = 0;
 
     /**
      * Conta constructor.
-     * @param string $cpfHolder
-     * @param string $nameHolder
+     * @param string $holder
      */
-    public function __construct(string $cpfHolder, string $nameHolder)
+    public function __construct(Cliente $holder)
     {
-        $this->cpfHolder = $cpfHolder;
-        $this->nameHolder = $nameHolder;
-        $this->validateHolderName($nameHolder);
+        $this->holder = $holder;
         $this->balance = 0;
 
         self::$numberAccount++;
@@ -34,17 +30,14 @@ class Conta
     /**
      * @return mixed
      */
-    public function getCpfHolder()
+    public function getHolder()
     {
-        return $this->cpfHolder;
+        return $this->holder->getName();
     }
 
-    /**
-     * @return mixed
-     */
-    public function getNameHolder()
+    public function getCpfHolder(): string
     {
-        return $this->nameHolder;
+        return $this->holder->getCpf();
     }
 
     /**
@@ -56,7 +49,6 @@ class Conta
     }
 
     /**
-     * @param $this
      * @param float $value
      */
     public function withdraw(float $value): void
@@ -94,17 +86,6 @@ class Conta
         $this->withdraw($value);
         $targetAccount->deposit($value);
 
-    }
-
-    /**
-     * @param string $nomeTitular
-     */
-    private function validateHolderName(string $nomeTitular)
-    {
-        if(strlen($nomeTitular) < 5){
-            echo "Nome inválido, insira sobrenome";
-            exit();
-        }
     }
 
     public static function getNumberAccount():int
