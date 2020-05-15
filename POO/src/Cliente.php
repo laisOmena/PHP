@@ -1,42 +1,22 @@
 <?php
 
 
-class Cliente
+class Cliente extends Pessoa
 {
-    private $cpf;
-    private $name;
+    private string $address;
 
-    public function __construct(Cpf $cpf, string $name)
+    public function __construct(Cpf $cpf, string $name, Endereco $address)
     {
-        $this->cpf = $cpf;
-        $this->validateHolderName($name);
-        $this->name = $name;
+        parent::__construct($name, $cpf);
+        $this->address = $address;
     }
 
     /**
      * @return string
      */
-    public function getCpf(): string
+    public function getAddress(): string
     {
-        return $this->cpf->getNumber();
+        return $this->address;
     }
 
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    private function validateHolderName(string $name)
-    {
-        if(strlen($name) < 5){
-            echo "Nome inválido, insira sobrenome";
-            exit();
-        }
-    }
 }
